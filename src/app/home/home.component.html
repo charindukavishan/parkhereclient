@@ -1,0 +1,56 @@
+
+
+<div class="row show-hide-message" *ngIf="message && newPost">
+      <div [ngClass]="messageClass">
+        {{ message }}
+      </div>
+    </div>
+    
+    <button *ngIf="!newPost" (click)="newcomment()"  type="button" class="btn btn-success btn-outline-rounded btn-info ">New Comment</button>
+    
+    
+<form *ngIf="newPost" #newpostForm="ngForm" (ngSubmit)="newpostForm.valid && onSubmit(newpostForm)">
+        <div class="form-group">
+          <label class="control-label" for="createdBy">Your Name</label>
+          <input class="form-control input-md" #createdBy="ngModel" required  id="createdBy" name="createdBy" type="text" placeholder="createdBy" [(ngModel)]="model.createdBy">
+          </div>
+                <div class="form-group">
+                        <label class="control-label" for="createdBy">Comment</label>
+                        <input class="form-control input-md" #body="ngModel" required  id="body" name="body" type="text" placeholder="body" [(ngModel)]="model.body">
+                        </div>
+       
+      <input type="submit" [disabled]="!newpostForm.valid" class="btn btn-success btn-outline-rounded btn-info " value="Share">
+      <button *ngIf="newPost" (click)="goback()" type="button" class="btn btn-success btn-outline-rounded btn-info ">Back</button>
+    </form> 
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+                     <ul class="timeline" *ngIf="!newPost">
+                        <li  *ngFor="let blog of blogPosts">
+                           <!-- begin timeline-time -->
+                           <div class="timeline-time">
+                              <span class="date">{{ blog.createdAt | date:'MMM dd, yyyy' }}</span>
+                              <span class="time">{{ blog.createdAt | date:'hh:mm' }}</span>
+                           </div>
+                           <!-- end timeline-time -->
+                           <!-- begin timeline-icon -->
+                           <div class="timeline-icon">
+                              <a href="javascript:;">&nbsp;</a>
+                           </div>
+                           <!-- end timeline-icon -->
+                           <!-- begin timeline-body -->
+                           <div class="timeline-body">
+                              <div class="timeline-header">
+                                 <span class="userimage"><img src="http://bootdey.com/img/Content/user_1.jpg" alt=""></span>
+                                 <span class="username"><a href="javascript:;">{{ blog.createdBy }}</a> <small></small></span>
+                                 <!-- <span class="pull-right text-muted">18 Views</span> -->
+                              </div>
+                              <div class="timeline-content">
+                                 <p>{{ blog.body }}</p>
+                              </div>
+                              
+                              
+                              
+                           </div>
+                           <!-- end timeline-body -->
+                        </li>
+                     </ul>
